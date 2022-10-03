@@ -1,0 +1,12 @@
+Перенаправление потоков
+a.exe < inp.txt > out.txt
+
+Все warningi
+gcc -Wall 1.c
+
+Есть ещё -Wextra
+
+EOF in cmd
+ENTER
+Ctrl + Z
+ENTER
