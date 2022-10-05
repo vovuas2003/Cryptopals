@@ -16,7 +16,7 @@ int main() {
         buf2[1] = s2[i + 1];
         sscanf(buf1, "%hhx", &t1);
         sscanf(buf2, "%hhx", &t2);
-        printf("%hhx", t1 ^ t2);
+        printf("%02hhx", t1 ^ t2);
     }
     return 0;
 }
