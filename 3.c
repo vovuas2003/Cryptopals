@@ -48,11 +48,16 @@ int check(char* etaoin_up, char* etaoin_low, char* s, int l) {
     char t;
     for(int i = 0; i < l; i++) {
         t = s[i];
-        if((32 <= t) && (t <= 126) && (t != 38)) {
+        if(((t >= 32) && (t <= 126)) || (t == '\n')) {
             for(int j = 0; j < 12; j++) {
                 if((t == etaoin_up[j]) || (t == etaoin_low[j])) {
-                    otv += 1 + j;
+                    otv += 12 + 3 * (j + 1);
                     break;
+                }
+                if(((t >= 'a') && (t <= 'z')) || ((t >= 'A') && (t <= 'Z'))) {
+                    otv += 7;
+                } else {
+                    otv -= 15;
                 }
             }
         } else {
