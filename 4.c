@@ -11,9 +11,12 @@ int main() {
     char inp[S];
     char buf[3];
     buf[2] = '\0';
-    int l;
-    for(int i = 0; i < 327; i++) {
-        scanf("%s", inp);
+    int i = 0, l;
+    while(1) {
+        if(scanf("%s", inp) == EOF) {
+            break;
+        }
+        i++;
         l = strlen(inp) / 2;
         char* norm_inp = (char*)malloc(l * sizeof(char));
         for(int j = 0; j < l; j++) {
