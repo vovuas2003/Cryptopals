@@ -25,10 +25,15 @@ int main() {
         if(i == 0) {
             break;
         }
-        printf("%c%c%c%c", table[buf[0] >> 2], table[((buf[0] & 0x3 ) << 4) | (buf[1] >> 4)], table[((buf[1] & 0xf) << 2) | (buf[2] >> 6)], table[buf[2] & 0x3f]);
-        if(i != 3) {
+        if(i == 1) {
+            printf("%c%c==", table[buf[0] >> 2], table[((buf[0] & 0x3 ) << 4) | (buf[1] >> 4)]);
             break;
         }
+        if(i == 2) {
+            printf("%c%c%c=", table[buf[0] >> 2], table[((buf[0] & 0x3 ) << 4) | (buf[1] >> 4)], table[((buf[1] & 0xf) << 2) | (buf[2] >> 6)]);
+            break;
+        }
+        printf("%c%c%c%c", table[buf[0] >> 2], table[((buf[0] & 0x3 ) << 4) | (buf[1] >> 4)], table[((buf[1] & 0xf) << 2) | (buf[2] >> 6)], table[buf[2] & 0x3f]);
     }
     return 0;
 }
