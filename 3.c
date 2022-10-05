@@ -54,10 +54,10 @@ int check(char* etaoin_up, char* etaoin_low, char* s, int l) {
                     otv += 12 + 3 * (j + 1);
                     break;
                 }
-                if(((t >= 'a') && (t <= 'z')) || ((t >= 'A') && (t <= 'Z'))) {
+                if(((t >= 'a') && (t <= 'z')) || ((t >= 'A') && (t <= 'Z')) || (t == ' ')) {
                     otv += 7;
                 } else {
-                    otv -= 15;
+                    otv -= 30;
                 }
             }
         } else {
