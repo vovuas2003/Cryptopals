@@ -7,9 +7,26 @@
 
 void base64(char*, char*, char*, int, int, char*);
 char find(char, char*);
+int hamming(char*, char*, int);
 
 int main() {
 
+    char s1[S], s2[S], t, l = 0;
+    while(1) {
+        t = getchar();
+        if(t == '\n') {
+            break;
+        }
+        s1[l] = t;
+        l++;
+    }
+    for(int i = 0; i < l; i++) {
+        s2[i] = getchar();
+    }
+
+    printf("%d", hamming(s1, s2, l));
+    
+    /*
     char table[64] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
@@ -42,6 +59,7 @@ int main() {
             }
         }
     }
+    */
     /*
     for(i = 0; i < l; i++) {
         printf("%02hhx", inp[i]);
@@ -69,4 +87,17 @@ void base64(char* buf, char* table, char* write, int l, int n, char* temp_write)
     for(int i = 0; i < n; i++) {
         write[l + i] = temp_write[i];
     }
+}
+
+int hamming(char* a, char* b, int l) {
+    int otv = 0;
+    char t;
+    for(int i = 0; i < l; i++) {
+        t = a[i] ^ b[i];
+        while(t != 0) {
+            otv += t & 1;
+            t = t >> 1;
+        }
+    }
+    return otv;
 }
