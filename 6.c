@@ -5,18 +5,8 @@
 #define ONE 100
 #define S 5000
 
-void base64(char*, char*);
-void base64_2(char*, char*);
-void base64_3(char*, char*);
-
-/*
-Написать функции перевода base64 в hex для 3 случаев:
-    base64 - нет ни одного =
-    base64_3 - если одно = в конце
-    base64_2 - два = в конце
-
-!!!Они должны дописывать в inp, который надо им передать
-*/
+void base64(char*, char*, char*, int, int, char*);
+char find(char, char*);
 
 int main() {
 
@@ -24,10 +14,10 @@ int main() {
                       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
     
-    char one[ONE], inp[S], buf[4];
+    char one[ONE], inp[S], buf[4], temp_write[3];
     int lo, l = 0, i, j;
     while(1) {
-        if(scanf("%s", one) = EOF) {
+        if(scanf("%s", one) == EOF) {
             break;
         }
         lo = strlen(one);
@@ -36,18 +26,47 @@ int main() {
                 buf[j] = one[i * 4 + j];
             }
             if(buf[3] == '=') {
+                buf[3] = 'A';
                 if(buf[2] == '=') {
-                    base64_2(buf, table);
+                    buf[2] = 'A';
+                    base64(buf, table, inp, l, 1, temp_write);
                     l++;
                 } else {
-                    base64_3(buf, table);
+                    base64(buf, table, inp, l, 2, temp_write);
                     l += 2;
                 }
+                break;
             } else {
-                base64(buf, table);
+                base64(buf, table, inp, l, 3, temp_write);
                 l += 3;
             }
         }
     }
+    /*
+    for(i = 0; i < l; i++) {
+        printf("%02hhx", inp[i]);
+    }
+    */
     return 0;
+}
+
+char find(char c, char* table) {
+    for(char i = 0; i < 64; i++) {
+        if(c == table[(int) i]) {
+            return i;
+        }
+    }
+    return 64;
+}
+
+void base64(char* buf, char* table, char* write, int l, int n, char* temp_write) {
+    for(int i = 0; i < 4; i++) {
+        buf[i] = find(buf[i], table);
+    }
+    temp_write[0] = (buf[0] << 2) | (buf[1] >> 4);
+    temp_write[1] = ((buf[1] & 0xf) << 4) | (buf[2] >> 2);
+    temp_write[2] = ((buf[2] & 0x3) << 6) | (buf[3]);
+    for(int i = 0; i < n; i++) {
+        write[l + i] = temp_write[i];
+    }
 }
