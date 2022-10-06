@@ -1,12 +1,14 @@
 Перенаправление потоков
-a.exe < inp.txt > out.txt
+a.exe < inp.txt > out.txt 2> err.txt
+
+fprintf(stderr, "%d", n);
 
 Все warningi
 gcc -Wall 1.c
 
 Есть ещё -Wextra
 
-EOF in cmd
+EOF in cmd (but '\n' will be added)
 ENTER
 Ctrl + Z
 ENTER
