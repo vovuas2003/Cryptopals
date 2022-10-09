@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <float.h>
 
 #define ONE 100
 #define S 5000
+#define MA_KS 40
 
 void base64(char*, char*, char*, int, int, char*);
 char find(char, char*);
@@ -11,26 +13,10 @@ int hamming(char*, char*, int);
 
 int main() {
 
-    char s1[S], s2[S], t, l = 0;
-    while(1) {
-        t = getchar();
-        if(t == '\n') {
-            break;
-        }
-        s1[l] = t;
-        l++;
-    }
-    for(int i = 0; i < l; i++) {
-        s2[i] = getchar();
-    }
-
-    printf("%d", hamming(s1, s2, l));
-    
-    /*
     char table[64] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
-    
+
     char one[ONE], inp[S], buf[4], temp_write[3];
     int lo, l = 0, i, j;
     while(1) {
@@ -59,12 +45,23 @@ int main() {
             }
         }
     }
-    */
-    /*
-    for(i = 0; i < l; i++) {
-        printf("%02hhx", inp[i]);
+    int ks = 0, n = 0;
+    double ham = DBL_MAX, t_ham = 0;
+    for(i = 2; i <= MA_KS; i++) {
+        t_ham = 0;
+        n = 0;
+        for(j = 0; j < l - 2 * i; j += i) {
+            n++;
+            t_ham += (double) hamming(inp + j, inp + j + i, i);
+        }
+        t_ham /= n;
+        t_ham /= i;
+        if(t_ham < ham) {
+            ham = t_ham;
+            ks = i;
+        }
     }
-    */
+    printf("%d\n", ks);
     return 0;
 }
 
