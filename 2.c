@@ -1,7 +1,12 @@
+/*
+Fixed XOR
+Write a function that takes two equal-length buffers and produces their XOR combination.
+*/
+
 #include <stdio.h>
 #include <string.h>
 
-#define S 100
+#define S 100 /* max len of one string include \0 */
 
 int main() {
     char s1[S], s2[S], buf1[3], buf2[3], t1 = 0, t2 = 0;
