@@ -1,0 +1,10 @@
+gcc -Wall -Wextra 1.c -o 1.exe
+
+fprintf(stderr, "%d", n);
+
+a.exe < inp.txt > out.txt 2> err.txt
+
+EOF in cmd (but '\n' will be added)
+ENTER
+Ctrl + Z
+ENTER
